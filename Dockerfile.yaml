@@ -1,0 +1,16 @@
+
+#FROM nginx
+#RUN mkdir /home/data
+#COPY . /home/filestmp/* /home/data/
+
+FROM python:3 AS py
+
+WORKDIR /git/archivos
+ARG TOKEN=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
+ARG USER=brayooo
+
+RUN git clone https://${USER}:${TOKEN}@github.com/brayooo/PythonAppDis.git
+
+RUN pip install Flask
+WORKDIR /git/archivos/PythonAppDis
+ENTRYPOINT [ "/usr/local/bin/python","/git/archivos/PythonAppDis/genNames.py" ]
