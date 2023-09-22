@@ -1,0 +1,21 @@
+FROM  maven:3.8.7-openjdk-18 as builder
+WORKDIR /opt/app
+
+ARG TOKEN=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
+ARG USER=brayooo
+
+RUN git clone https://${USER}:${TOKEN}@github.com/brayooo/Proyect1Distribuidos.git
+
+WORKDIR /opt/app/Proyect1Distribuidos
+
+RUN mvn clean install
+
+FROM openjdk:18-slim
+RUN mkdir /opt/data
+WORKDIR /opt/app
+EXPOSE 8080 
+COPY --from=builder /opt/app/Proyect1Distribuidos/target/*.jar /opt/app/webApp.jar
+COPY --from=builder /opt/app/Proyect1Distribuidos/src/* /opt/data/
+ENTRYPOINT ["java", "-jar", "/opt/app/webApp.jar"]
+
+
