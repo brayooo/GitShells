@@ -1,8 +1,8 @@
 FROM  maven:3.8.7-openjdk-18 as builder
 WORKDIR /opt/app
 
-ARG TOKEN=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
-ARG USER=brayooo
+ARG TOKEN=token
+ARG USER=user
 
 RUN git clone https://${USER}:${TOKEN}@github.com/brayooo/Proyect1Distribuidos.git
 
